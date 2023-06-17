@@ -33,9 +33,46 @@ document.getElementById('newsletter').checked = true;
 var guestNames = ["Anu Das", "Noore Ahmed", "Elon Musk"]; // Example guest names
 var guestNameInputs = document.getElementsByClassName('guest-name-input');
 
-for (var i = 0; i < guestNames.length && i < guestNameInputs.length; i++) {
+function addGuestInput() {
+  const container = document.getElementById('guest-names-container');
+  const inputGroup = document.createElement('div');
+  inputGroup.className = 'guest-input-group';
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.className = 'guest-name-input';
+  input.name = 'guest-name[]';
+  input.required = true;
+  const addButton = document.createElement('button');
+  addButton.className = 'add-guest-button';
+  addButton.type = 'button';
+  addButton.textContent = '+';
+  addButton.onclick = addGuestInput;
+
+  const lastInputGroup = container.lastElementChild;
+  const lastAddButton = lastInputGroup.querySelector('.add-guest-button');
+  lastAddButton.remove();
+
+
+  inputGroup.appendChild(input);
+  inputGroup.appendChild(addButton);
+  container.appendChild(inputGroup);
+}
+
+
+// for (var i = 0; i < guestNames.length && i < guestNameInputs.length; i++) {
+//   guestNameInputs[i].value = guestNames[i];
+// }
+
+
+//To remove the last empty text field
+for (var i = 0; i < guestNames.length; i++) {
+  addGuestInput();
   guestNameInputs[i].value = guestNames[i];
 }
+const container = document.getElementById('guest-names-container');
+const lastInputGroup = container.lastElementChild;
+lastInputGroup.remove();
+
 
 
 // Set the path to your PDF file
