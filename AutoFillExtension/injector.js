@@ -11,7 +11,7 @@ var formattedDate = year + '-' + ('0' + month).slice(-2) + '-' + ('0' + day).sli
 // Create a new Date object for check-out by adding 1 day to the check-in date
 var checkOutDate = new Date(year, month - 1, day + 1);
 
-// Extract day, month, and year from the check-out date
+
 var checkOutDay = checkOutDate.getDate();
 var checkOutMonth = checkOutDate.getMonth() + 1; // Note: Month starts from 0
 var checkOutYear = checkOutDate.getFullYear();
@@ -30,7 +30,7 @@ document.getElementById('special-requests').value = "None";
 document.getElementById('newsletter').checked = true;
 
 // Adding guest names
-var guestNames = ["John Doe", "Jane Smith", "Mike Johnson"]; // Example guest names
+var guestNames = ["Anu Das", "Noore Ahmed", "Elon Musk"]; // Example guest names
 var guestNameInputs = document.getElementsByClassName('guest-name-input');
 
 for (var i = 0; i < guestNames.length && i < guestNameInputs.length; i++) {
@@ -38,32 +38,18 @@ for (var i = 0; i < guestNames.length && i < guestNameInputs.length; i++) {
 }
 
 
-var fileUrl = 'D:\\OneDrive\\Desktop\\coding\\ApplyIn\\Task2\\idCard.pdf';
+// Set the path to your PDF file
+var pdfFilePath = 'idCard.pdf';
+// Create a new File object for the PDF file
+var pdfFile = new File([pdfFilePath], 'attachment.pdf', { type: 'application/pdf' });
+// Create a new DataTransfer object and add the PDF file to it
+var dataTransfer = new DataTransfer();
+dataTransfer.items.add(pdfFile);
 
-fetch(fileUrl)
-    .then(response => response.blob())
-    .then(blob => {
-      var formData = new FormData();
-      formData.append('pdfFile', blob, 'file.pdf');
+var fileInput = document.getElementById('identity-proof');
+// Set the files property of the file input element with the DataTransfer object containing the PDF file
+fileInput.files = dataTransfer.files;
 
-      // Send the form data to the server using AJAX or fetch API
-      // Replace the 'upload-url' with your actual server-side upload endpoint
-      fetch('upload-url', {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => {
-        // Handle the server response
-        console.log('Upload success!');
-      })
-      .catch(error => {
-        // Handle any errors that occurred during the upload
-        console.error('Upload failed:', error);
-      });
-    })
-    .catch(error => {
-      console.error('Error retrieving PDF file:', error);
-    });
 
 var chkboxes = document.getElementById("email").value;
 alert(chkboxes);
